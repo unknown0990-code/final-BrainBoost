@@ -1,0 +1,108 @@
+/* BrainBoost Custom CSS - Modern UI Update */
+
+/* Base font updates */
+.stApp {
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Main Header */
+.brand-header {
+    font-size: 3.5rem !important;
+    font-weight: 800 !important;
+    background: -webkit-linear-gradient(45deg, #4A90E2, #50E3C2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+/* Tagline */
+.tagline {
+    font-size: 1.1rem;
+    color: #888888;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+/* Metric text styling override for Streamlit native metrics */
+[data-testid="stMetricValue"] {
+    font-size: 2.2rem !important;
+    color: #4A90E2 !important;
+    font-weight: 700 !important;
+}
+
+[data-testid="stMetricLabel"] {
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    color: #555555 !important;
+}
+
+/* Add hover effects to all buttons */
+.stButton>button {
+    border-radius: 8px !important;
+    transition: all 0.3s ease-in-out;
+    font-weight: 600 !important;
+}
+
+.stButton>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    border-color: #4A90E2 !important;
+    color: #4A90E2 !important;
+}
+
+/* Primary Button Styling */
+.stButton>button[kind="primary"] {
+    background-color: #4A90E2 !important;
+    color: white !important;
+}
+
+.stButton>button[kind="primary"]:hover {
+    background-color: #357ABD !important;
+    color: white !important;
+    box-shadow: 0 6px 14px rgba(74, 144, 226, 0.4);
+}
+
+/* Creative Divider */
+.spark-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 40px 0 20px 0;
+}
+.spark-divider::before, .spark-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px dashed #4A90E2;
+}
+.spark-divider:not(:empty)::before {
+    margin-right: .25em;
+}
+.spark-divider:not(:empty)::after {
+    margin-left: .25em;
+}
+.spark-icon {
+    font-size: 1.5rem;
+    color: #F5A623;
+}
+
+/* Results Highlights */
+.result-success {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 10px;
+}
+
+.result-fail {
+    color: #dc3545;
+    font-weight: bold;
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 10px;
+}

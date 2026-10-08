@@ -2,7 +2,8 @@ import sqlite3
 import os
 import datetime
 
-DB_DIR = "db_files"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_DIR = os.path.join(BASE_DIR, "db_files")
 DB_FILE = os.path.join(DB_DIR, "iq_test.db")
 
 def get_connection():

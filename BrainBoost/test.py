@@ -113,22 +113,75 @@ def evaluate_test():
 
 def show_test_result():
     st.title("Test Results")
-    
+
     score = st.session_state.test_score
     total = st.session_state.test_total
     percentage = st.session_state.test_percentage
-    
+
     if percentage >= 80:
-        st.markdown(f'<div class="result-success">Excellent Job!</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="result-success">Excellent Job!</div>',
+            unsafe_allow_html=True
+        )
         st.balloons()
     elif percentage >= 50:
-        st.markdown(f'<div class="result-success" style="color:#F5A623;">Good Effort!</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="result-success" style="color:#F5A623;">'
+            'Good Effort!</div>',
+            unsafe_allow_html=True
+        )
     else:
-        st.markdown(f'<div class="result-fail">Keep Practicing!</div>', unsafe_allow_html=True)
-        
+        st.markdown(
+            '<div class="result-fail">Keep Practicing!</div>',
+            unsafe_allow_html=True
+        )
+
     st.metric(label="Your Score", value=f"{score} / {total}")
     st.metric(label="Percentage", value=f"{percentage:.2f}%")
-    
-    if st.button("Take Another Test"):
+
+    # ========================================================
+    # ANSWER REVIEW
+    # ========================================================
+    st.write("---")
+    st.subheader("📝 Review Your Answers")
+
+    questions = st.session_state.test_questions
+    answers = st.session_state.user_answers
+
+    for number, q in enumerate(questions, start=1):
+        question_id = q[0]
+        question_text = q[2]
+        correct_answer = q[7]
+        user_answer = answers.get(question_id)
+
+        with st.expander(
+            f"Question {number}: {question_text}"
+        ):
+            st.write(f"**Question:** {question_text}")
+
+            if user_answer is None:
+                st.warning("⏭️ Not answered")
+                st.write(
+                    f"**Correct answer:** {correct_answer}"
+                )
+
+            elif user_answer == correct_answer:
+                st.success("✅ Correct Answer!")
+                st.write(f"**Your answer:** {user_answer}")
+
+            else:
+                st.error("❌ Incorrect Answer")
+                st.write(f"**Your answer:** {user_answer}")
+                st.success(
+                    f"**Correct answer:** {correct_answer}"
+                )
+
+    st.write("---")
+
+    if st.button("Take Another Test", use_container_width=True):
         reset_test_state()
         st.rerun()
+
+
+
+

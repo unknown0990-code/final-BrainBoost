@@ -62,7 +62,7 @@ def show_auth_page():
     # ADMIN LOGIN TAB
     with tab3:
         st.header("Administrator sign in 🔒")
-         st.write("[ only for authorised person! ]")
+        st.write("[ only for authorised person! ]")
         admin_user = st.text_input(" Username")
         admin_pass = st.text_input(" Password", type="password")
         

@@ -53,11 +53,19 @@ def run_test_interface():
     options = [q[3], q[4], q[5], q[6]]
     
     # Check if previously answered
+
     saved_answer = st.session_state.user_answers.get(q[0], None)
-    idx = options.index(saved_answer) if saved_answer in options else 0
+    idx = options.index(saved_answer) if saved_answer in options else None
     
-    selected_option = st.radio("Select your answer:", options, index=idx, key=f"q_{q[0]}")
+    selected_option = st.radio(
+        "Select your answer:",
+        options,
+        index=idx,
+        key=f"q_{q[0]}"
+    )
+    
     st.session_state.user_answers[q[0]] = selected_option
+
     
     st.write("---")
     

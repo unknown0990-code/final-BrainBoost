@@ -9,11 +9,12 @@ def show_auth_page():
     st.markdown('<div class="brand-header">BrainBoost Test</div>', unsafe_allow_html=True)
     st.markdown('<div class="tagline">Challenge Your Mind • Improve Your Knowledge • Track Your Progress</div>', unsafe_allow_html=True)
     
-    tab1, tab2, tab3 = st.tabs(["Login", "Register", "Admin Login 🔒"])
+    tab1, tab2, tab3 = st.tabs(["Login", "Create New Account", "Admin Login 🔒"])
     
     # LOGIN TAB
     with tab1:
-        st.subheader("Student Login")
+        st.subheader("Student Login 🗝️")
+        st.write("[ Login to your existing account]")
         log_user = st.text_input("Username", key="log_user")
         log_pass = st.text_input("Password", type="password", key="log_pass")
         
@@ -38,7 +39,8 @@ def show_auth_page():
                 
     # REGISTER TAB
     with tab2:
-        st.subheader("New Student Registration")
+        st.subheader("New Student Registration📝")
+        st.write("[ Fill the details & Create account ]")
         reg_name = st.text_input("Full Name")
         reg_user = st.text_input("Choose Username")
         reg_phone = st.text_input("Phone Number")

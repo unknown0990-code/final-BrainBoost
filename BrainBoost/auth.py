@@ -9,7 +9,7 @@ def show_auth_page():
     st.markdown('<div class="brand-header">BrainBoost Test</div>', unsafe_allow_html=True)
     st.markdown('<div class="tagline">Challenge Your Mind • Improve Your Knowledge • Track Your Progress</div>', unsafe_allow_html=True)
     
-    tab1, tab2, tab3 = st.tabs(["Login", "Register", "Admin Login"])
+    tab1, tab2, tab3 = st.tabs(["Login", "Register", "Admin Login 🔒"])
     
     # LOGIN TAB
     with tab1:
@@ -61,7 +61,8 @@ def show_auth_page():
 
     # ADMIN LOGIN TAB
     with tab3:
-        st.subheader("Administrator sign in")
+        st.header("Administrator sign in 🔒")
+         st.write("[ only for authorised person! ]")
         admin_user = st.text_input(" Username")
         admin_pass = st.text_input(" Password", type="password")
         

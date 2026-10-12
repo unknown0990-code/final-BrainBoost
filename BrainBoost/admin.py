@@ -156,11 +156,130 @@ def show_delete_question():
 
 def show_users():
     header.show_brand_header()
-    
-    st.title("Registered Users")
+
+    st.title("👥 Student Management")
+
     users = get_all_users()
+    results = get_all_results()
+
     if not users:
         st.info("No users registered yet.")
-    else:
-        df = pd.DataFrame(users, columns=["ID", "Name", "Username", "Phone"])
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        return
+
+    # REGISTERED USERS
+    st.subheader("📋 Registered Users")
+
+    users_df = pd.DataFrame(
+        users,
+        columns=["ID", "Name", "Username", "Phone"]
+    )
+
+    st.dataframe(
+        users_df,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.write("---")
+
+    # SELECT STUDENT
+    st.subheader("📊 Student Performance")
+
+    user_options = {
+        f"{user[1]} (@{user[2]})": user[2]
+        for user in users
+    }
+
+    selected_student = st.selectbox(
+        "Select a student to view performance",
+        options=list(user_options.keys()),
+        key="admin_student_select"
+    )
+
+    username = user_options[selected_student]
+
+    # FILTER RESULTS FOR SELECTED STUDENT
+    student_results = [
+        result for result in results
+        if result[1] == username
+    ]
+
+    if not student_results:
+        st.info(
+            f"{selected_student} has not taken any tests yet."
+        )
+        return
+
+    # SUMMARY STATISTICS
+    total_tests = len(student_results)
+
+    best_score = max(
+        (result[5] for result in student_results)
+    )
+
+    average_score = sum(
+        result[5] for result in student_results
+    ) / total_tests
+
+    total_correct = sum(
+        result[3] for result in student_results
+    )
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric("Tests Taken", total_tests)
+    col2.metric("Best Score", f"{best_score:.1f}%")
+    col3.metric("Avg Score", f"{average_score:.1f}%")
+    col4.metric("Total Correct", total_correct)
+
+    st.write("---")
+
+    # AVERAGE SCORE BY SUBJECT
+    st.subheader("📈 Average Score by Subject")
+
+    history_df = pd.DataFrame(
+        student_results,
+        columns=[
+            "ID", "Username", "Category",
+            "Score", "Total", "Percentage", "Date"
+        ]
+    )
+
+    subject_average = (
+        history_df.groupby("Category")["Percentage"]
+        .mean()
+        .sort_values(ascending=False)
+    )
+
+    st.bar_chart(
+        subject_average,
+        color="#4A90E2",
+        y_label="Average Percentage (%)"
+    )
+
+    st.write("---")
+
+    # TEST HISTORY
+    st.subheader("📝 Test History")
+
+    display_df = history_df[
+        ["Category", "Score", "Total", "Percentage", "Date"]
+    ].copy()
+
+    display_df["Percentage"] = display_df[
+        "Percentage"
+    ].apply(lambda value: f"{value:.2f}%")
+
+    display_df.rename(
+        columns={"Percentage": "Percentage (%)"},
+        inplace=True
+    )
+
+    st.dataframe(
+        display_df,
+        use_container_width=True,
+        hide_index=True
+    )
+
+
+
